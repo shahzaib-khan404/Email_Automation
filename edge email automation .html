@@ -1,1126 +1,1096 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edge Edu — AI Email Auto-Responder | Product Requirements Document</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+    :root {
+      --purple: #5B21B6;
+      --purple-light: #7C3AED;
+      --purple-pale: #EDE9FE;
+      --purple-mid: #DDD6FE;
+      --dark: #1E1B4B;
+      --gray: #6B7280;
+      --gray-light: #F3F4F6;
+      --border: #E5E7EB;
+      --green: #059669;
+      --green-pale: #ECFDF5;
+      --yellow: #D97706;
+      --yellow-pale: #FFFBEB;
+      --red: #DC2626;
+      --red-pale: #FEF2F2;
+      --blue: #2563EB;
+      --blue-pale: #EFF6FF;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #111827;
+      background: #fff;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .cover {
+      background: linear-gradient(135deg, #1E1B4B 0%, #4C1D95 50%, #6D28D9 100%);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 200px;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .cover-badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      display: inline-block;
+    }
+
+    .cover h1 {
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      max-width: 700px;
+    }
+
+    .cover h1 span { color: #C4B5FD; }
+
+    .cover-sub {
+      font-size: 20px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 60px;
+      max-width: 550px;
+    }
+
+    .cover-meta {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 40px;
+    }
+
+    .cover-meta-item label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .cover-meta-item span {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .cover-logo {
+      position: absolute;
+      top: 50px; right: 80px;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .cover-logo span {
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 80px;
+    }
+
+    .toc-page {
+      padding: 60px 80px;
+      max-width: 900px;
+      margin: 0 auto;
+      border-bottom: 2px solid var(--purple-pale);
+    }
+
+    .toc-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 32px;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .toc-item:last-child { border-bottom: none; }
+
+    .toc-item-left {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+
+    .toc-num {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--purple);
+      min-width: 24px;
+    }
+
+    .toc-label {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .toc-sub {
+      font-size: 12px;
+      color: var(--gray);
+      margin-left: 38px;
+      margin-top: -4px;
+      padding-bottom: 4px;
+    }
+
+    .section-header {
+      margin: 60px 0 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--purple-pale);
+    }
+
+    .section-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .section-header h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--dark);
+      margin: 28px 0 12px;
+    }
+
+    h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 20px 0 8px;
+    }
+
+    p { margin-bottom: 12px; color: #374151; }
+
+    .callout {
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .callout-content { flex: 1; }
+    .callout-content strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .callout-content p { margin: 0; font-size: 13px; }
+
+    .callout.info { background: var(--blue-pale); border-left: 3px solid var(--blue); }
+    .callout.info strong, .callout.info p { color: #1e40af; }
+
+    .callout.success { background: var(--green-pale); border-left: 3px solid var(--green); }
+    .callout.success strong, .callout.success p { color: #065f46; }
+
+    .callout.warning { background: var(--yellow-pale); border-left: 3px solid var(--yellow); }
+    .callout.warning strong, .callout.warning p { color: #92400e; }
+
+    .callout.purple { background: var(--purple-pale); border-left: 3px solid var(--purple); }
+    .callout.purple strong, .callout.purple p { color: #3730a3; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 13px;
+    }
+
+    thead tr {
+      background: var(--dark);
+      color: white;
+    }
+
+    thead th {
+      padding: 10px 14px;
+      font-weight: 600;
+      text-align: left;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    tbody tr:nth-child(even) { background: var(--gray-light); }
+    tbody tr:hover { background: var(--purple-pale); }
+
+    tbody td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .badge.must { background: #FEE2E2; color: #991B1B; }
+    .badge.should { background: #FEF3C7; color: #92400E; }
+    .badge.nice { background: #DCFCE7; color: #166534; }
+    .badge.high { background: #FEE2E2; color: #991B1B; }
+    .badge.med { background: #FEF3C7; color: #92400E; }
+    .badge.low { background: #DCFCE7; color: #166534; }
+    .badge.done { background: #DBEAFE; color: #1E40AF; }
+
+    .code-block {
+      background: #1E1B4B;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      color: #C4B5FD;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .code-block .comment { color: #6B7280; }
+    .code-block .key { color: #93C5FD; }
+    .code-block .value { color: #6EE7B7; }
+    .code-block .string { color: #FCA5A5; }
+
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 24px 0;
+      flex-wrap: wrap;
+    }
+
+    .flow-step {
+      background: var(--purple-pale);
+      border: 2px solid var(--purple-mid);
+      border-radius: 8px;
+      padding: 12px 16px;
+      text-align: center;
+      min-width: 110px;
+    }
+
+    .flow-step .step-num {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--purple-light);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .flow-step .step-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-top: 4px;
+    }
+
+    .flow-arrow {
+      font-size: 20px;
+      color: var(--purple);
+      padding: 0 6px;
+      font-weight: 300;
+    }
+
+    .req-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .req-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      border-top: 3px solid var(--purple);
+    }
+
+    .req-card h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      margin: 0 0 8px;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .req-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .req-card ul li {
+      font-size: 12px;
+      color: #374151;
+      padding: 3px 0;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .req-card ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--purple-light);
+      font-size: 11px;
+    }
+
+    .prompt-box {
+      background: #0F0C29;
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin: 24px 0;
+    }
+
+    .prompt-box .prompt-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #A78BFA;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .prompt-box .prompt-label::before {
+      content: '';
+      width: 20px;
+      height: 2px;
+      background: #A78BFA;
+      display: inline-block;
+    }
+
+    .prompt-box pre {
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      color: #E2E8F0;
+      line-height: 1.9;
+      white-space: pre-wrap;
+    }
+
+    .prompt-box .highlight { color: #C4B5FD; font-weight: 600; }
+    .prompt-box .variable { color: #6EE7B7; }
+    .prompt-box .comment-line { color: #4B5563; font-style: italic; }
+
+    .timeline { margin: 24px 0; }
+
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 4px;
+    }
+
+    .timeline-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 100px;
+    }
+
+    .timeline-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--purple);
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .timeline-line {
+      width: 2px;
+      background: var(--purple-mid);
+      flex: 1;
+      min-height: 30px;
+      margin: 4px auto;
+    }
+
+    .timeline-item:last-child .timeline-line { display: none; }
+
+    .timeline-content {
+      padding-bottom: 24px;
+      flex: 1;
+    }
+
+    .timeline-content h4 {
+      margin: 6px 0 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .timeline-week {
+      font-size: 11px;
+      color: var(--purple-light);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .timeline-content p {
+      font-size: 13px;
+      color: var(--gray);
+      margin: 0;
+    }
+
+    .doc-footer {
+      margin-top: 80px;
+      padding-top: 24px;
+      border-top: 2px solid var(--purple-pale);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--gray);
+      font-size: 12px;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      background: var(--gray-light);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--purple);
+    }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Edge Edu — AI Email Auto-Responder | Product Requirements Document&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--purple: #5B21B6;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--purple-light: #7C3AED;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--purple-pale: #EDE9FE;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--purple-mid: #DDD6FE;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--dark: #1E1B4B;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--gray: #6B7280;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--gray-light: #F3F4F6;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--border: #E5E7EB;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--green: #059669;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--green-pale: #ECFDF5;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--yellow: #D97706;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--yellow-pale: #FFFBEB;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--red: #DC2626;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--red-pale: #FEF2F2;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--blue: #2563EB;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--blue-pale: #EFF6FF;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>* { margin: 0; padding: 0; box-sizing: border-box; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Inter', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #111827;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #fff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.7;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── COVER PAGE ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, #1E1B4B 0%, #4C1D95 50%, #6D28D9 100%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-height: 100vh;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: flex-start;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 80px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>page-break-after: always;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover::before {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>top: -100px; right: -100px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 500px; height: 500px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255,255,255,0.04);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover::after {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>bottom: -80px; left: 200px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 350px; height: 350px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255,255,255,0.03);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover-badge {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255,255,255,0.15);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(255,255,255,0.25);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 6px 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 1.5px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 40px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover h1 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 52px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 700px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover h1 span {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #C4B5FD;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover-sub {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 300;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(255,255,255,0.75);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 60px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 550px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover-meta {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(3, auto);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 40px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover-meta-item label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 1.5px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(255,255,255,0.5);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover-meta-item span {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(255,255,255,0.9);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover-logo {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>top: 50px; right: 80px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 28px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 800;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: -1px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.cover-logo span {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 300;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: rgba(255,255,255,0.6);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── LAYOUT ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.page {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 900px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 60px 80px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── TOC ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.toc-page {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 60px 80px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 900px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>page-break-after: always;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.toc-title {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--purple);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 32px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.toc-item {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: baseline;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 10px 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px dashed var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.toc-item:last-child { border-bottom: none; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.toc-item-left {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: baseline;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.toc-num {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--purple);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-width: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.toc-label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--dark);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.toc-sub {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gray);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-left: 38px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: -4px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── SECTION HEADERS ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.section-header {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 60px 0 32px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 2px solid var(--purple-pale);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.section-num {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--purple-light);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.section-header h2 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 26px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--dark);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h3 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--dark);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 28px 0 12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h4 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gray);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 1px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 20px 0 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>p { margin-bottom: 12px; color: #374151; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── CALLOUT BOXES ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 16px 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 20px 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: flex-start;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout-content { flex: 1; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout-content strong { display: block; margin-bottom: 4px; font-size: 13px; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout-content p { margin: 0; font-size: 13px; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout.info { background: var(--blue-pale); border-left: 3px solid var(--blue); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout.info strong, .callout.info p { color: #1e40af; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout.success { background: var(--green-pale); border-left: 3px solid var(--green); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout.success strong, .callout.success p { color: #065f46; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout.warning { background: var(--yellow-pale); border-left: 3px solid var(--yellow); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout.warning strong, .callout.warning p { color: #92400e; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout.purple { background: var(--purple-pale); border-left: 3px solid var(--purple); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.callout.purple strong, .callout.purple p { color: #3730a3; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── TABLES ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>table {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-collapse: collapse;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 20px 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>thead tr {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--dark);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>thead th {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 10px 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: left;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.5px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>tbody tr:nth-child(even) { background: var(--gray-light); }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>tbody tr:hover { background: var(--purple-pale); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>tbody td {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 10px 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>vertical-align: top;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── BADGES ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 2px 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge.must { background: #FEE2E2; color: #991B1B; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge.should { background: #FEF3C7; color: #92400E; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge.nice { background: #DCFCE7; color: #166534; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge.high { background: #FEE2E2; color: #991B1B; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge.med { background: #FEF3C7; color: #92400E; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge.low { background: #DCFCE7; color: #166534; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.badge.done { background: #DBEAFE; color: #1E40AF; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── CODE BLOCKS ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.code-block {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #1E1B4B;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 20px 24px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 16px 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow-x: auto;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.code-block pre {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Fira Code', monospace;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #C4B5FD;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.8;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>white-space: pre-wrap;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.code-block .comment { color: #6B7280; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.code-block .key { color: #93C5FD; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.code-block .value { color: #6EE7B7; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.code-block .string { color: #FCA5A5; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── FLOW DIAGRAM ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.flow {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 24px 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.flow-step {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--purple-pale);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 2px solid var(--purple-mid);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 12px 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-width: 110px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.flow-step .step-num {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--purple-light);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 1px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.flow-step .step-label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--dark);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.flow-arrow {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--purple);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0 6px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 300;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── REQUIREMENT CARDS ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.req-grid {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: 1fr 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 20px 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.req-card {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-top: 3px solid var(--purple);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.req-card h4 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--dark);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.req-card ul {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>list-style: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.req-card ul li {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #374151;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 3px 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-left: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.req-card ul li::before {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>content: '→';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>left: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--purple-light);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── AI PROMPT BOX ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.prompt-box {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #0F0C29;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 28px 32px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 24px 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.prompt-box .prompt-label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #A78BFA;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.prompt-box .prompt-label::before {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #A78BFA;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.prompt-box pre {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'Fira Code', monospace;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #E2E8F0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.9;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>white-space: pre-wrap;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.prompt-box .highlight { color: #C4B5FD; font-weight: 600; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.prompt-box .variable { color: #6EE7B7; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.prompt-box .comment-line { color: #4B5563; font-style: italic; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── TIMELINE ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.timeline { margin: 24px 0; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.timeline-item {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.timeline-left {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-width: 100px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.timeline-dot {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 36px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>height: 36px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--purple);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-shrink: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.timeline-line {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--purple-mid);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-height: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 4px auto;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.timeline-item:last-child .timeline-line { display: none; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.timeline-content {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex: 1;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.timeline-content h4 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 6px 0 6px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--dark);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-transform: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.timeline-week {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--purple-light);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: 0.5px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.timeline-content p {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gray);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── FOOTER ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.doc-footer {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 80px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-top: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-top: 2px solid var(--purple-pale);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--gray);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* ── PRINT ── */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media print {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.cover { page-break-after: always; }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.toc-page { page-break-after: always; }</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.section-header { page-break-before: auto; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- ════════════════ COVER ════════════════ --&gt;</p>
-<p class="p1">&lt;div class="cover"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="cover-logo"&gt;EDGE &lt;span&gt;Edu&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="cover-badge"&gt;Product Requirements Document&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;AI-Powered Email&lt;br/&gt;&lt;span&gt;Auto-Responder&lt;/span&gt;&lt;br/&gt;System&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;p class="cover-sub"&gt;Automated Gmail Integration with Claude AI &amp; FAQ-Based Knowledge Base&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="cover-meta"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="cover-meta-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;label&gt;Document Version&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;v1.0&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="cover-meta-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;label&gt;Date&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;March 2026&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="cover-meta-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;label&gt;Status&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;Ready for Development&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- ════════════════ TABLE OF CONTENTS ════════════════ --&gt;</p>
-<p class="p1">&lt;div class="toc-page"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-title"&gt;Table of Contents&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="toc-item-left"&gt;&lt;span class="toc-num"&gt;01&lt;/span&gt;&lt;span class="toc-label"&gt;Project Overview&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-sub"&gt;Purpose, Goals, and Scope&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="toc-item-left"&gt;&lt;span class="toc-num"&gt;02&lt;/span&gt;&lt;span class="toc-label"&gt;System Architecture&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-sub"&gt;Component Overview, Data Flow, and Tech Stack&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="toc-item-left"&gt;&lt;span class="toc-num"&gt;03&lt;/span&gt;&lt;span class="toc-label"&gt;Functional Requirements&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-sub"&gt;Gmail Integration, AI Engine, Approval Workflow&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="toc-item-left"&gt;&lt;span class="toc-num"&gt;04&lt;/span&gt;&lt;span class="toc-label"&gt;AI Prompt Specification&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-sub"&gt;System Prompt, Tone, Behavior Rules&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="toc-item-left"&gt;&lt;span class="toc-num"&gt;05&lt;/span&gt;&lt;span class="toc-label"&gt;FAQ Knowledge Base&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-sub"&gt;Full FAQ Content Embedded in AI Context&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="toc-item-left"&gt;&lt;span class="toc-num"&gt;06&lt;/span&gt;&lt;span class="toc-label"&gt;Non-Functional Requirements&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-sub"&gt;Security, Performance, Reliability&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="toc-item-left"&gt;&lt;span class="toc-num"&gt;07&lt;/span&gt;&lt;span class="toc-label"&gt;Development Deliverables&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-sub"&gt;Files, Setup Guide, Environment Variables&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="toc-item-left"&gt;&lt;span class="toc-num"&gt;08&lt;/span&gt;&lt;span class="toc-label"&gt;Implementation Timeline&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-sub"&gt;Phased Delivery Plan&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="toc-item-left"&gt;&lt;span class="toc-num"&gt;09&lt;/span&gt;&lt;span class="toc-label"&gt;Appendix&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="toc-sub"&gt;Gmail API Setup, Error Codes, Contact&lt;/div&gt;</p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;!-- ════════════════ CONTENT ════════════════ --&gt;</p>
-<p class="p1">&lt;div class="page"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── SECTION 1 ── --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="section-num"&gt;Section 01&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Project Overview&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;Purpose&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;p&gt;Edge Edu receives a continuous volume of client support emails related to their online certification program. The goal of this project is to build a fully automated Gmail monitoring system that uses Claude AI (Anthropic) to generate formal, accurate, FAQ-based email responses — with a human approval step before any email is sent.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="callout purple"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="callout-icon"&gt;:dart:&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="callout-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;strong&gt;Primary Objective&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;Reduce manual email response time while maintaining response quality and accuracy by grounding every reply in the official Edge Edu FAQ knowledge base.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;Goals&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;th&gt;Goal&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;th&gt;Priority&lt;/th&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Automated monitoring&lt;/td&gt;&lt;td&gt;Watch Gmail inbox and detect new client emails in real time&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must Have&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;AI-generated responses&lt;/td&gt;&lt;td&gt;Use Claude AI + FAQ content to draft accurate replies&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must Have&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Human approval gate&lt;/td&gt;&lt;td&gt;Show draft to operator — send only after explicit approval&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must Have&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Edit before send&lt;/td&gt;&lt;td&gt;Allow operator to modify AI draft before sending&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must Have&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Formal corporate tone&lt;/td&gt;&lt;td&gt;All replies must use formal, professional language&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must Have&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Fallback for unknown Qs&lt;/td&gt;&lt;td&gt;If FAQ doesn't cover the topic, AI answers generally or escalates&lt;/td&gt;&lt;td&gt;&lt;span class="badge should"&gt;Should Have&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Duplicate prevention&lt;/td&gt;&lt;td&gt;Never process the same email twice&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must Have&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;Out of Scope (v1.0)&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;p&gt;The following are explicitly excluded from this version: web-based UI dashboard, multi-inbox support, auto-send without approval, CRM integration, analytics/reporting dashboard, and mobile app.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── SECTION 2 ── --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="section-num"&gt;Section 02&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;System Architecture&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;High-Level Data Flow&lt;/h3&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="flow"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flow-step"&gt;&lt;div class="step-num"&gt;Step 1&lt;/div&gt;&lt;div class="step-label"&gt;Gmail Inbox&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flow-arrow"&gt;→&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flow-step"&gt;&lt;div class="step-num"&gt;Step 2&lt;/div&gt;&lt;div class="step-label"&gt;Email Fetcher&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flow-arrow"&gt;→&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flow-step"&gt;&lt;div class="step-num"&gt;Step 3&lt;/div&gt;&lt;div class="step-label"&gt;Claude AI&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flow-arrow"&gt;→&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flow-step"&gt;&lt;div class="step-num"&gt;Step 4&lt;/div&gt;&lt;div class="step-label"&gt;Draft Shown&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flow-arrow"&gt;→&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flow-step"&gt;&lt;div class="step-num"&gt;Step 5&lt;/div&gt;&lt;div class="step-label"&gt;Approval&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flow-arrow"&gt;→&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flow-step"&gt;&lt;div class="step-num"&gt;Step 6&lt;/div&gt;&lt;div class="step-label"&gt;Reply Sent&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;Component Breakdown&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="req-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="req-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h4&gt;:mailbox_with_mail: Gmail Watcher&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Polls inbox every 30 seconds&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Filters unread messages only&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Extracts sender, subject, body&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Uses Google OAuth2 authentication&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="req-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h4&gt;:robot_face: AI Response Engine&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Calls Claude Sonnet via Anthropic API&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Injects FAQ as system context&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Generates formal corporate reply&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Handles unknown questions gracefully&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="req-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h4&gt;:white_check_mark: Approval Workflow&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Displays original email + AI draft&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;3 actions: Approve / Edit / Skip&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Only sends after explicit approval&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Logs all decisions locally&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="req-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h4&gt;:file_folder: State Manager&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Tracks all processed email IDs&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Persists state across restarts&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Marks emails as read after handling&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Prevents duplicate processing&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;Technology Stack&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;th&gt;Layer&lt;/th&gt;&lt;th&gt;Technology&lt;/th&gt;&lt;th&gt;Purpose&lt;/th&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Language&lt;/td&gt;&lt;td&gt;Python 3.8+&lt;/td&gt;&lt;td&gt;Core application runtime&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Email API&lt;/td&gt;&lt;td&gt;Google Gmail API v1&lt;/td&gt;&lt;td&gt;Read &amp; send Gmail messages&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Auth&lt;/td&gt;&lt;td&gt;Google OAuth 2.0&lt;/td&gt;&lt;td&gt;Secure Gmail authentication&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;AI Model&lt;/td&gt;&lt;td&gt;Anthropic Claude Sonnet (claude-sonnet-4-20250514)&lt;/td&gt;&lt;td&gt;Response generation&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;AI SDK&lt;/td&gt;&lt;td&gt;anthropic Python SDK&lt;/td&gt;&lt;td&gt;API communication&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;State&lt;/td&gt;&lt;td&gt;JSON flat file&lt;/td&gt;&lt;td&gt;Processed email ID tracking&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── SECTION 3 ── --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="section-num"&gt;Section 03&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Functional Requirements&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;FR-1: Gmail Integration&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Requirement&lt;/th&gt;&lt;th&gt;Priority&lt;/th&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-1.1&lt;/td&gt;&lt;td&gt;Authenticate with Gmail using OAuth2 (credentials.json + token.json flow)&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-1.2&lt;/td&gt;&lt;td&gt;Poll INBOX label for unread messages at configurable interval (default: 30s)&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-1.3&lt;/td&gt;&lt;td&gt;Extract sender name/email, subject line, and plain-text body&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-1.4&lt;/td&gt;&lt;td&gt;Handle multipart MIME emails — extract text/plain part only&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-1.5&lt;/td&gt;&lt;td&gt;Send reply preserving thread context (In-Reply-To, References headers)&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-1.6&lt;/td&gt;&lt;td&gt;Mark email as read after processing&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-1.7&lt;/td&gt;&lt;td&gt;Gracefully handle Gmail API rate limits and token refresh&lt;/td&gt;&lt;td&gt;&lt;span class="badge should"&gt;Should&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;FR-2: AI Response Generation&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Requirement&lt;/th&gt;&lt;th&gt;Priority&lt;/th&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-2.1&lt;/td&gt;&lt;td&gt;Send email subject + body + sender name to Claude API with system prompt&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-2.2&lt;/td&gt;&lt;td&gt;System prompt must embed the full Edge Edu FAQ as context&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-2.3&lt;/td&gt;&lt;td&gt;Response tone must be formal and corporate at all times&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-2.4&lt;/td&gt;&lt;td&gt;If question is in FAQ — answer accurately using FAQ content&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-2.5&lt;/td&gt;&lt;td&gt;If question is NOT in FAQ — provide a helpful general answer&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-2.6&lt;/td&gt;&lt;td&gt;Always sign off as "Edge Edu Support Team"&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-2.7&lt;/td&gt;&lt;td&gt;Never fabricate information not present in the FAQ&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-2.8&lt;/td&gt;&lt;td&gt;Direct unresolvable queries to taldev@onedge.co&lt;/td&gt;&lt;td&gt;&lt;span class="badge should"&gt;Should&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;FR-3: Approval Workflow&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Requirement&lt;/th&gt;&lt;th&gt;Priority&lt;/th&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-3.1&lt;/td&gt;&lt;td&gt;Display original email (sender, subject, body) in terminal before showing draft&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-3.2&lt;/td&gt;&lt;td&gt;Display AI-generated draft response clearly&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-3.3&lt;/td&gt;&lt;td&gt;[A] Approve — send the AI draft as-is&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-3.4&lt;/td&gt;&lt;td&gt;[E] Edit — allow operator to paste custom text, then send&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-3.5&lt;/td&gt;&lt;td&gt;[S] Skip — mark as processed, do not send any reply&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;FR-3.6&lt;/td&gt;&lt;td&gt;Persist processed email IDs to JSON file to prevent reprocessing&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Must&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── SECTION 4 ── --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="section-num"&gt;Section 04&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;AI Prompt Specification&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;p&gt;The following is the exact system prompt that must be passed to the Claude API for every request. It defines the AI's identity, behavior rules, tone, and knowledge source.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="prompt-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="prompt-label"&gt;SYSTEM PROMPT — Pass to Claude API as system parameter&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;pre&gt;&lt;span class="highlight"&gt;ROLE:&lt;/span&gt;</p>
-<p class="p1">You are a professional customer support representative for &lt;span class="variable"&gt;Edge Edu&lt;/span&gt;,</p>
-<p class="p1">an online certification platform. Your job is to respond to</p>
-<p class="p1">client emails in a &lt;span class="highlight"&gt;formal, corporate tone&lt;/span&gt;.</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;span class="highlight"&gt;KNOWLEDGE BASE:&lt;/span&gt;</p>
-<p class="p1">Use ONLY the following FAQ content to answer questions.</p>
-<p class="p1">Do NOT fabricate information. Do NOT guess.</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;span class="variable"&gt;{FAQ_CONTENT}&lt;/span&gt;<span class="Apple-converted-space">  </span>&lt;span class="comment-line"&gt;← Full FAQ text injected here at runtime&lt;/span&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;span class="highlight"&gt;BEHAVIOR RULES:&lt;/span&gt;</p>
-<p class="p1">1. Always respond in formal, professional English.</p>
-<p class="p1">2. Answer questions directly using FAQ content when possible.</p>
-<p class="p1">3. If the topic is NOT in the FAQ, provide a helpful general</p>
-<p class="p1"><span class="Apple-converted-space">   </span>answer — do not say "I don't know."</p>
-<p class="p1">4. If you truly cannot answer, politely refer the client to:</p>
-<p class="p1"><span class="Apple-converted-space">   </span>taldev@onedge.co</p>
-<p class="p1">5. Never use casual language, slang, or emojis.</p>
-<p class="p1">6. Do not use excessive bullet points — prefer clear paragraphs.</p>
-<p class="p1">7. Sign every email as: &lt;span class="variable"&gt;Edge Edu Support Team&lt;/span&gt;</p>
-<p class="p1">8. Begin with a professional greeting using the sender's name</p>
-<p class="p1"><span class="Apple-converted-space">   </span>if available.</p>
-<p class="p1">9. Do not fabricate program details, dates, or policies.</p>
-<p class="p1">10. Max response length: 300 words unless more is needed for</p>
-<p class="p1"><span class="Apple-converted-space">    </span>accuracy.</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;span class="highlight"&gt;OUTPUT FORMAT:&lt;/span&gt;</p>
-<p class="p1">- Email body only (no subject line)</p>
-<p class="p1">- Start with: "Dear [Name]," or "Dear Learner,"</p>
-<p class="p1">- End with: "Warm regards, / Edge Edu Support Team"&lt;/pre&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;User Prompt Template&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;p&gt;The following is the user-turn message format sent alongside the system prompt for each email:&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="code-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;pre&gt;&lt;span class="comment"&gt;// User message constructed at runtime for each incoming email&lt;/span&gt;</p>
-<p class="p1">&lt;span class="key"&gt;user_message&lt;/span&gt; = &lt;span class="string"&gt;f"""</p>
-<p class="p1">Please write a formal email response to the following client email:</p>
-<p class="p2"><br></p>
-<p class="p1">FROM: {sender_name}</p>
-<p class="p1">SUBJECT: {email_subject}</p>
-<p class="p2"><br></p>
-<p class="p1">EMAIL CONTENT:</p>
-<p class="p1">{email_body}</p>
-<p class="p2"><br></p>
-<p class="p1">Write only the email body (no subject line).</p>
-<p class="p1">Start with a proper formal greeting.</p>
-<p class="p1">"""&lt;/span&gt;&lt;/pre&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;Tone Examples&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;th&gt;Scenario&lt;/th&gt;&lt;th&gt;:x: Incorrect Tone&lt;/th&gt;&lt;th&gt;:white_check_mark: Correct Tone&lt;/th&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;Greeting&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;"Hey! Hope you're doing well :blush:"&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;"Dear [Name], Thank you for reaching out to Edge Edu."&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;Answering FAQ Q&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;"Yeah so basically you have 6 weeks to finish"&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;"The program must be completed within 6 weeks of enrollment. Extensions are not granted beyond this timeline."&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;Unknown question&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;"Hmm I'm not sure about that one"&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;"For further clarification on this matter, please contact our Talent Development team at taldev@onedge.co."&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;Sign-off&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;"Thanks! :wave:"&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;td&gt;"Warm regards, Edge Edu Support Team"&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── SECTION 5 ── --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="section-num"&gt;Section 05&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;FAQ Knowledge Base&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;p&gt;The following FAQ content must be embedded verbatim into the AI system prompt as the knowledge source. It covers all major topics clients ask about.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="callout warning"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="callout-icon"&gt;:warning:&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="callout-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;strong&gt;Developer Note&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;This content should be stored in a separate constants file (e.g., faq_content.py) and imported into the main script. When the FAQ is updated by the Edge Edu team, only this file needs to be updated — no changes to the core logic required.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;FAQ Topics Covered&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;th&gt;Category&lt;/th&gt;&lt;th&gt;Topics&lt;/th&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Getting Started&lt;/td&gt;&lt;td&gt;Equipment requirements, how to pass, why soft skills are included, repetitive content rationale&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Program Structure&lt;/td&gt;&lt;td&gt;Content types, program duration (4–6 weeks), roadmap, early completion, 6-week deadline, pausing, daily module limits, access hours, progress tracking&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Quizzes&lt;/td&gt;&lt;td&gt;Not timed, not graded toward final score, 90% passing score, unlimited retakes&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Final Evaluations&lt;/td&gt;&lt;td&gt;Certificate requirements (3 exams + live demo), exam duration (40–80 min), grading (85% pass), timed exams, open-book policy, academic integrity rules, score release timing&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Support&lt;/td&gt;&lt;td&gt;"Ask Help!" phone bot, direct email taldev@onedge.co&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Troubleshooting&lt;/td&gt;&lt;td&gt;White screen fix, "Looks Like You Are Lost" error, browser recommendations&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── SECTION 6 ── --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="section-num"&gt;Section 06&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Non-Functional Requirements&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="req-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="req-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h4&gt;:lock: Security&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;API key via environment variable only — never hardcoded&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;token.json must be excluded from version control (.gitignore)&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;credentials.json must be kept private&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;No email content stored beyond processed IDs&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="req-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h4&gt;:zap: Performance&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;AI response generated in under 10 seconds&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Polling interval configurable (default: 30s)&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Script must remain running without memory leaks&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Graceful handling of API timeouts&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="req-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h4&gt;:shield: Reliability&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Retry logic on Gmail API failures&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Script must recover from network interruptions&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Processed IDs persisted immediately after decision&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Clear error messages with actionable guidance&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="req-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;h4&gt;:wrench: Maintainability&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;FAQ content in a separate constants file&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Configuration section at top of script&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Clear inline comments throughout&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;README with full setup instructions&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── SECTION 7 ── --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="section-num"&gt;Section 07&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Development Deliverables&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;Required Files&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;th&gt;File&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;&lt;code&gt;edge_edu_email_responder.py&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Main application script&lt;/td&gt;&lt;td&gt;&lt;span class="badge done"&gt;Delivered ✓&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;&lt;code&gt;faq_content.py&lt;/code&gt;&lt;/td&gt;&lt;td&gt;FAQ knowledge base as a Python constant&lt;/td&gt;&lt;td&gt;&lt;span class="badge should"&gt;Recommended&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;&lt;code&gt;credentials.json&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Google OAuth credentials (provided by operator)&lt;/td&gt;&lt;td&gt;&lt;span class="badge must"&gt;Required by operator&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;&lt;code&gt;token.json&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Auto-generated on first run&lt;/td&gt;&lt;td&gt;&lt;span class="badge nice"&gt;Auto-generated&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;&lt;code&gt;processed_emails.json&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Auto-generated — tracks processed IDs&lt;/td&gt;&lt;td&gt;&lt;span class="badge nice"&gt;Auto-generated&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;&lt;code&gt;README.md / SETUP_GUIDE.md&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Step-by-step setup instructions&lt;/td&gt;&lt;td&gt;&lt;span class="badge done"&gt;Delivered ✓&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;&lt;code&gt;.gitignore&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Exclude token.json, credentials.json, .env&lt;/td&gt;&lt;td&gt;&lt;span class="badge should"&gt;Recommended&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;Required Environment Variables&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;th&gt;Variable&lt;/th&gt;&lt;th&gt;Description&lt;/th&gt;&lt;th&gt;Where to Get&lt;/th&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;&lt;code&gt;ANTHROPIC_API_KEY&lt;/code&gt;&lt;/td&gt;&lt;td&gt;Anthropic Claude API key&lt;/td&gt;&lt;td&gt;console.anthropic.com&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;Python Dependencies&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="code-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;pre&gt;&lt;span class="comment"&gt;# Install with: pip install -r requirements.txt&lt;/span&gt;</p>
-<p class="p1">&lt;span class="value"&gt;anthropic&lt;/span&gt;</p>
-<p class="p1">&lt;span class="value"&gt;google-auth&lt;/span&gt;</p>
-<p class="p1">&lt;span class="value"&gt;google-auth-oauthlib&lt;/span&gt;</p>
-<p class="p1">&lt;span class="value"&gt;google-auth-httplib2&lt;/span&gt;</p>
-<p class="p1">&lt;span class="value"&gt;google-api-python-client&lt;/span&gt;&lt;/pre&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── SECTION 8 ── --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="section-num"&gt;Section 08&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Implementation Timeline&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="timeline"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="timeline-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="timeline-left"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-dot"&gt;1&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-line"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="timeline-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-week"&gt;Week 1&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h4&gt;Environment Setup &amp; Gmail Auth&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Configure Google Cloud project, enable Gmail API, set up OAuth credentials, test authentication flow, verify inbox polling works correctly.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="timeline-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="timeline-left"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-dot"&gt;2&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-line"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="timeline-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-week"&gt;Week 1–2&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h4&gt;AI Integration &amp; Prompt Testing&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Integrate Anthropic API, implement system prompt with FAQ content, test response quality across various question types, refine prompt for tone and accuracy.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="timeline-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="timeline-left"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-dot"&gt;3&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-line"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="timeline-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-week"&gt;Week 2&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h4&gt;Approval Workflow &amp; State Management&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Build the Approve/Edit/Skip terminal interface, implement processed ID tracking, test the full end-to-end flow from inbox detection to reply sent.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="timeline-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="timeline-left"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-dot"&gt;4&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-line"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="timeline-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="timeline-week"&gt;Week 3&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h4&gt;Testing, Error Handling &amp; Documentation&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Test edge cases (malformed emails, API errors, expired tokens), add error handling and retry logic, write final README, conduct user acceptance testing with the support team.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── SECTION 9 ── --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="section-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="section-num"&gt;Section 09&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Appendix&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;Gmail API Setup — Step by Step&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;th&gt;Step&lt;/th&gt;&lt;th&gt;Action&lt;/th&gt;&lt;th&gt;URL&lt;/th&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;Create a new Google Cloud project&lt;/td&gt;&lt;td&gt;console.cloud.google.com&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;&lt;td&gt;Search for and enable "Gmail API"&lt;/td&gt;&lt;td&gt;APIs &amp; Services → Library&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;Create OAuth 2.0 credentials (Desktop App type)&lt;/td&gt;&lt;td&gt;APIs &amp; Services → Credentials&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;4&lt;/td&gt;&lt;td&gt;Download credentials JSON file&lt;/td&gt;&lt;td&gt;Click download icon on credential&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;5&lt;/td&gt;&lt;td&gt;Rename to credentials.json and place in project folder&lt;/td&gt;&lt;td&gt;—&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;6&lt;/td&gt;&lt;td&gt;Run script — browser opens for one-time Gmail login&lt;/td&gt;&lt;td&gt;—&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;7&lt;/td&gt;&lt;td&gt;token.json is auto-created for future runs&lt;/td&gt;&lt;td&gt;—&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h3&gt;Common Error Codes&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;th&gt;Error&lt;/th&gt;&lt;th&gt;Cause&lt;/th&gt;&lt;th&gt;Fix&lt;/th&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;credentials.json not found&lt;/td&gt;&lt;td&gt;File missing from project folder&lt;/td&gt;&lt;td&gt;Download from Google Cloud Console and rename&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;ANTHROPIC_API_KEY not set&lt;/td&gt;&lt;td&gt;Environment variable missing&lt;/td&gt;&lt;td&gt;Run: export ANTHROPIC_API_KEY=your_key&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Token expired&lt;/td&gt;&lt;td&gt;OAuth token needs refresh&lt;/td&gt;&lt;td&gt;Delete token.json and re-run script&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;Gmail API quota exceeded&lt;/td&gt;&lt;td&gt;Too many requests in short period&lt;/td&gt;&lt;td&gt;Increase polling interval in config&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;No module named 'anthropic'&lt;/td&gt;&lt;td&gt;Dependencies not installed&lt;/td&gt;&lt;td&gt;Run: pip install -r requirements.txt&lt;/td&gt;&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/table&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="callout success"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span class="callout-icon"&gt;:envelope_with_arrow:&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="callout-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;strong&gt;Support Contact&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;For questions about this project or the Edge Edu FAQ content, contact the Talent Development team at taldev@onedge.co&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- ── FOOTER ── --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="doc-footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span&gt;Edge Edu — AI Email Auto-Responder PRD v1.0&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;span&gt;Confidential &amp; Proprietary · March 2026&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/div&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-logo">EDGE <span>Edu</span></div>
+  <div class="cover-badge">Product Requirements Document</div>
+  <h1>AI-Powered Email<br/><span>Auto-Responder</span><br/>System</h1>
+  <p class="cover-sub">Automated Gmail Integration with Claude AI &amp; FAQ-Based Knowledge Base</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <label>Document Version</label>
+      <span>v1.0</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Date</label>
+      <span>March 2026</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Status</label>
+      <span>Ready for Development</span>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc-page">
+  <div class="toc-title">Table of Contents</div>
+
+  <div class="toc-item">
+    <div class="toc-item-left"><span class="toc-num">01</span><span class="toc-label">Project Overview</span></div>
+  </div>
+  <div class="toc-sub">Purpose, Goals, and Scope</div>
+
+  <div class="toc-item">
+    <div class="toc-item-left"><span class="toc-num">02</span><span class="toc-label">System Architecture</span></div>
+  </div>
+  <div class="toc-sub">Component Overview, Data Flow, and Tech Stack</div>
+
+  <div class="toc-item">
+    <div class="toc-item-left"><span class="toc-num">03</span><span class="toc-label">Functional Requirements</span></div>
+  </div>
+  <div class="toc-sub">Gmail Integration, AI Engine, Approval Workflow</div>
+
+  <div class="toc-item">
+    <div class="toc-item-left"><span class="toc-num">04</span><span class="toc-label">AI Prompt Specification</span></div>
+  </div>
+  <div class="toc-sub">System Prompt, Tone, Behavior Rules</div>
+
+  <div class="toc-item">
+    <div class="toc-item-left"><span class="toc-num">05</span><span class="toc-label">FAQ Knowledge Base</span></div>
+  </div>
+  <div class="toc-sub">Full FAQ Content Embedded in AI Context</div>
+
+  <div class="toc-item">
+    <div class="toc-item-left"><span class="toc-num">06</span><span class="toc-label">Non-Functional Requirements</span></div>
+  </div>
+  <div class="toc-sub">Security, Performance, Reliability</div>
+
+  <div class="toc-item">
+    <div class="toc-item-left"><span class="toc-num">07</span><span class="toc-label">Development Deliverables</span></div>
+  </div>
+  <div class="toc-sub">Files, Setup Guide, Environment Variables</div>
+
+  <div class="toc-item">
+    <div class="toc-item-left"><span class="toc-num">08</span><span class="toc-label">Implementation Timeline</span></div>
+  </div>
+  <div class="toc-sub">Phased Delivery Plan</div>
+
+  <div class="toc-item">
+    <div class="toc-item-left"><span class="toc-num">09</span><span class="toc-label">Appendix</span></div>
+  </div>
+  <div class="toc-sub">Gmail API Setup, Error Codes, Contact</div>
+</div>
+
+<!-- CONTENT -->
+<div class="page">
+
+  <!-- SECTION 1 -->
+  <div class="section-header">
+    <span class="section-num">Section 01</span>
+    <h2>Project Overview</h2>
+  </div>
+
+  <h3>Purpose</h3>
+  <p>Edge Edu receives a continuous volume of client support emails related to their online certification program. The goal of this project is to build a fully automated Gmail monitoring system that uses Claude AI (Anthropic) to generate formal, accurate, FAQ-based email responses — with a human approval step before any email is sent.</p>
+
+  <div class="callout purple">
+    <span class="callout-icon">🎯</span>
+    <div class="callout-content">
+      <strong>Primary Objective</strong>
+      <p>Reduce manual email response time while maintaining response quality and accuracy by grounding every reply in the official Edge Edu FAQ knowledge base.</p>
+    </div>
+  </div>
+
+  <h3>Goals</h3>
+  <table>
+    <thead>
+      <tr><th>Goal</th><th>Description</th><th>Priority</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Automated monitoring</td><td>Watch Gmail inbox and detect new client emails in real time</td><td><span class="badge must">Must Have</span></td></tr>
+      <tr><td>AI-generated responses</td><td>Use Claude AI + FAQ content to draft accurate replies</td><td><span class="badge must">Must Have</span></td></tr>
+      <tr><td>Human approval gate</td><td>Show draft to operator — send only after explicit approval</td><td><span class="badge must">Must Have</span></td></tr>
+      <tr><td>Edit before send</td><td>Allow operator to modify AI draft before sending</td><td><span class="badge must">Must Have</span></td></tr>
+      <tr><td>Formal corporate tone</td><td>All replies must use formal, professional language</td><td><span class="badge must">Must Have</span></td></tr>
+      <tr><td>Fallback for unknown Qs</td><td>If FAQ doesn't cover the topic, AI answers generally or escalates</td><td><span class="badge should">Should Have</span></td></tr>
+      <tr><td>Duplicate prevention</td><td>Never process the same email twice</td><td><span class="badge must">Must Have</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Out of Scope (v1.0)</h3>
+  <p>The following are explicitly excluded from this version: web-based UI dashboard, multi-inbox support, auto-send without approval, CRM integration, analytics/reporting dashboard, and mobile app.</p>
+
+  <!-- SECTION 2 -->
+  <div class="section-header">
+    <span class="section-num">Section 02</span>
+    <h2>System Architecture</h2>
+  </div>
+
+  <h3>High-Level Data Flow</h3>
+
+  <div class="flow">
+    <div class="flow-step"><div class="step-num">Step 1</div><div class="step-label">Gmail Inbox</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">Step 2</div><div class="step-label">Email Fetcher</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">Step 3</div><div class="step-label">Claude AI</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">Step 4</div><div class="step-label">Draft Shown</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">Step 5</div><div class="step-label">Approval</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="step-num">Step 6</div><div class="step-label">Reply Sent</div></div>
+  </div>
+
+  <h3>Component Breakdown</h3>
+  <div class="req-grid">
+    <div class="req-card">
+      <h4>📬 Gmail Watcher</h4>
+      <ul>
+        <li>Polls inbox every 30 seconds</li>
+        <li>Filters unread messages only</li>
+        <li>Extracts sender, subject, body</li>
+        <li>Uses Google OAuth2 authentication</li>
+      </ul>
+    </div>
+    <div class="req-card">
+      <h4>🤖 AI Response Engine</h4>
+      <ul>
+        <li>Calls Claude Sonnet via Anthropic API</li>
+        <li>Injects FAQ as system context</li>
+        <li>Generates formal corporate reply</li>
+        <li>Handles unknown questions gracefully</li>
+      </ul>
+    </div>
+    <div class="req-card">
+      <h4>✅ Approval Workflow</h4>
+      <ul>
+        <li>Displays original email + AI draft</li>
+        <li>3 actions: Approve / Edit / Skip</li>
+        <li>Only sends after explicit approval</li>
+        <li>Logs all decisions locally</li>
+      </ul>
+    </div>
+    <div class="req-card">
+      <h4>📁 State Manager</h4>
+      <ul>
+        <li>Tracks all processed email IDs</li>
+        <li>Persists state across restarts</li>
+        <li>Marks emails as read after handling</li>
+        <li>Prevents duplicate processing</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Technology Stack</h3>
+  <table>
+    <thead>
+      <tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Language</td><td>Python 3.8+</td><td>Core application runtime</td></tr>
+      <tr><td>Email API</td><td>Google Gmail API v1</td><td>Read &amp; send Gmail messages</td></tr>
+      <tr><td>Auth</td><td>Google OAuth 2.0</td><td>Secure Gmail authentication</td></tr>
+      <tr><td>AI Model</td><td>Anthropic Claude Sonnet (claude-sonnet-4-20250514)</td><td>Response generation</td></tr>
+      <tr><td>AI SDK</td><td>anthropic Python SDK</td><td>API communication</td></tr>
+      <tr><td>State</td><td>JSON flat file</td><td>Processed email ID tracking</td></tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 3 -->
+  <div class="section-header">
+    <span class="section-num">Section 03</span>
+    <h2>Functional Requirements</h2>
+  </div>
+
+  <h3>FR-1: Gmail Integration</h3>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Requirement</th><th>Priority</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>FR-1.1</td><td>Authenticate with Gmail using OAuth2 (credentials.json + token.json flow)</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-1.2</td><td>Poll INBOX label for unread messages at configurable interval (default: 30s)</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-1.3</td><td>Extract sender name/email, subject line, and plain-text body</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-1.4</td><td>Handle multipart MIME emails — extract text/plain part only</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-1.5</td><td>Send reply preserving thread context (In-Reply-To, References headers)</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-1.6</td><td>Mark email as read after processing</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-1.7</td><td>Gracefully handle Gmail API rate limits and token refresh</td><td><span class="badge should">Should</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>FR-2: AI Response Generation</h3>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Requirement</th><th>Priority</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>FR-2.1</td><td>Send email subject + body + sender name to Claude API with system prompt</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-2.2</td><td>System prompt must embed the full Edge Edu FAQ as context</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-2.3</td><td>Response tone must be formal and corporate at all times</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-2.4</td><td>If question is in FAQ — answer accurately using FAQ content</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-2.5</td><td>If question is NOT in FAQ — provide a helpful general answer</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-2.6</td><td>Always sign off as "Edge Edu Support Team"</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-2.7</td><td>Never fabricate information not present in the FAQ</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-2.8</td><td>Direct unresolvable queries to taldev@onedge.co</td><td><span class="badge should">Should</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>FR-3: Approval Workflow</h3>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Requirement</th><th>Priority</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>FR-3.1</td><td>Display original email (sender, subject, body) in terminal before showing draft</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-3.2</td><td>Display AI-generated draft response clearly</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-3.3</td><td>[A] Approve — send the AI draft as-is</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-3.4</td><td>[E] Edit — allow operator to paste custom text, then send</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-3.5</td><td>[S] Skip — mark as processed, do not send any reply</td><td><span class="badge must">Must</span></td></tr>
+      <tr><td>FR-3.6</td><td>Persist processed email IDs to JSON file to prevent reprocessing</td><td><span class="badge must">Must</span></td></tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 4 -->
+  <div class="section-header">
+    <span class="section-num">Section 04</span>
+    <h2>AI Prompt Specification</h2>
+  </div>
+
+  <p>The following is the exact system prompt that must be passed to the Claude API for every request. It defines the AI's identity, behavior rules, tone, and knowledge source.</p>
+
+  <div class="prompt-box">
+    <div class="prompt-label">SYSTEM PROMPT — Pass to Claude API as system parameter</div>
+    <pre><span class="highlight">ROLE:</span>
+You are a professional customer support representative for <span class="variable">Edge Edu</span>,
+an online certification platform. Your job is to respond to
+client emails in a <span class="highlight">formal, corporate tone</span>.
+
+<span class="highlight">KNOWLEDGE BASE:</span>
+Use ONLY the following FAQ content to answer questions.
+Do NOT fabricate information. Do NOT guess.
+
+<span class="variable">{FAQ_CONTENT}</span>  <span class="comment-line">← Full FAQ text injected here at runtime</span>
+
+<span class="highlight">BEHAVIOR RULES:</span>
+1. Always respond in formal, professional English.
+2. Answer questions directly using FAQ content when possible.
+3. If the topic is NOT in the FAQ, provide a helpful general
+   answer — do not say "I don't know."
+4. If you truly cannot answer, politely refer the client to:
+   taldev@onedge.co
+5. Never use casual language, slang, or emojis.
+6. Do not use excessive bullet points — prefer clear paragraphs.
+7. Sign every email as: <span class="variable">Edge Edu Support Team</span>
+8. Begin with a professional greeting using the sender's name
+   if available.
+9. Do not fabricate program details, dates, or policies.
+10. Max response length: 300 words unless more is needed for
+    accuracy.
+
+<span class="highlight">OUTPUT FORMAT:</span>
+- Email body only (no subject line)
+- Start with: "Dear [Name]," or "Dear Learner,"
+- End with: "Warm regards, / Edge Edu Support Team"</pre>
+  </div>
+
+  <h3>User Prompt Template</h3>
+  <p>The following is the user-turn message format sent alongside the system prompt for each email:</p>
+
+  <div class="code-block">
+    <pre><span class="comment">// User message constructed at runtime for each incoming email</span>
+<span class="key">user_message</span> = <span class="string">f"""
+Please write a formal email response to the following client email:
+
+FROM: {sender_name}
+SUBJECT: {email_subject}
+
+EMAIL CONTENT:
+{email_body}
+
+Write only the email body (no subject line).
+Start with a proper formal greeting.
+"""</span></pre>
+  </div>
+
+  <h3>Tone Examples</h3>
+  <table>
+    <thead>
+      <tr><th>Scenario</th><th>❌ Incorrect Tone</th><th>✅ Correct Tone</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Greeting</td>
+        <td>"Hey! Hope you're doing well 😊"</td>
+        <td>"Dear [Name], Thank you for reaching out to Edge Edu."</td>
+      </tr>
+      <tr>
+        <td>Answering FAQ Q</td>
+        <td>"Yeah so basically you have 6 weeks to finish"</td>
+        <td>"The program must be completed within 6 weeks of enrollment. Extensions are not granted beyond this timeline."</td>
+      </tr>
+      <tr>
+        <td>Unknown question</td>
+        <td>"Hmm I'm not sure about that one"</td>
+        <td>"For further clarification on this matter, please contact our Talent Development team at taldev@onedge.co."</td>
+      </tr>
+      <tr>
+        <td>Sign-off</td>
+        <td>"Thanks! 👋"</td>
+        <td>"Warm regards, Edge Edu Support Team"</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 5 -->
+  <div class="section-header">
+    <span class="section-num">Section 05</span>
+    <h2>FAQ Knowledge Base</h2>
+  </div>
+
+  <p>The following FAQ content must be embedded verbatim into the AI system prompt as the knowledge source. It covers all major topics clients ask about.</p>
+
+  <div class="callout warning">
+    <span class="callout-icon">⚠️</span>
+    <div class="callout-content">
+      <strong>Developer Note</strong>
+      <p>This content should be stored in a separate constants file (e.g., faq_content.py) and imported into the main script. When the FAQ is updated by the Edge Edu team, only this file needs to be updated — no changes to the core logic required.</p>
+    </div>
+  </div>
+
+  <h3>FAQ Topics Covered</h3>
+  <table>
+    <thead>
+      <tr><th>Category</th><th>Topics</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Getting Started</td><td>Equipment requirements, how to pass, why soft skills are included, repetitive content rationale</td></tr>
+      <tr><td>Program Structure</td><td>Content types, program duration (4–6 weeks), roadmap, early completion, 6-week deadline, pausing, daily module limits, access hours, progress tracking</td></tr>
+      <tr><td>Quizzes</td><td>Not timed, not graded toward final score, 90% passing score, unlimited retakes</td></tr>
+      <tr><td>Final Evaluations</td><td>Certificate requirements (3 exams + live demo), exam duration (40–80 min), grading (85% pass), timed exams, open-book policy, academic integrity rules, score release timing</td></tr>
+      <tr><td>Support</td><td>"Ask Help!" phone bot, direct email taldev@onedge.co</td></tr>
+      <tr><td>Troubleshooting</td><td>White screen fix, "Looks Like You Are Lost" error, browser recommendations</td></tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 6 -->
+  <div class="section-header">
+    <span class="section-num">Section 06</span>
+    <h2>Non-Functional Requirements</h2>
+  </div>
+
+  <div class="req-grid">
+    <div class="req-card">
+      <h4>🔒 Security</h4>
+      <ul>
+        <li>API key via environment variable only — never hardcoded</li>
+        <li>token.json must be excluded from version control (.gitignore)</li>
+        <li>credentials.json must be kept private</li>
+        <li>No email content stored beyond processed IDs</li>
+      </ul>
+    </div>
+    <div class="req-card">
+      <h4>⚡ Performance</h4>
+      <ul>
+        <li>AI response generated in under 10 seconds</li>
+        <li>Polling interval configurable (default: 30s)</li>
+        <li>Script must remain running without memory leaks</li>
+        <li>Graceful handling of API timeouts</li>
+      </ul>
+    </div>
+    <div class="req-card">
+      <h4>🛡️ Reliability</h4>
+      <ul>
+        <li>Retry logic on Gmail API failures</li>
+        <li>Script must recover from network interruptions</li>
+        <li>Processed IDs persisted immediately after decision</li>
+        <li>Clear error messages with actionable guidance</li>
+      </ul>
+    </div>
+    <div class="req-card">
+      <h4>🔧 Maintainability</h4>
+      <ul>
+        <li>FAQ content in a separate constants file</li>
+        <li>Configuration section at top of script</li>
+        <li>Clear inline comments throughout</li>
+        <li>README with full setup instructions</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 7 -->
+  <div class="section-header">
+    <span class="section-num">Section 07</span>
+    <h2>Development Deliverables</h2>
+  </div>
+
+  <h3>Required Files</h3>
+  <table>
+    <thead>
+      <tr><th>File</th><th>Description</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>edge_edu_email_responder.py</code></td><td>Main application script</td><td><span class="badge done">Delivered ✓</span></td></tr>
+      <tr><td><code>faq_content.py</code></td><td>FAQ knowledge base as a Python constant</td><td><span class="badge should">Recommended</span></td></tr>
+      <tr><td><code>credentials.json</code></td><td>Google OAuth credentials (provided by operator)</td><td><span class="badge must">Required by operator</span></td></tr>
+      <tr><td><code>token.json</code></td><td>Auto-generated on first run</td><td><span class="badge nice">Auto-generated</span></td></tr>
+      <tr><td><code>processed_emails.json</code></td><td>Auto-generated — tracks processed IDs</td><td><span class="badge nice">Auto-generated</span></td></tr>
+      <tr><td><code>README.md / SETUP_GUIDE.md</code></td><td>Step-by-step setup instructions</td><td><span class="badge done">Delivered ✓</span></td></tr>
+      <tr><td><code>.gitignore</code></td><td>Exclude token.json, credentials.json, .env</td><td><span class="badge should">Recommended</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Required Environment Variables</h3>
+  <table>
+    <thead>
+      <tr><th>Variable</th><th>Description</th><th>Where to Get</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>ANTHROPIC_API_KEY</code></td><td>Anthropic Claude API key</td><td>console.anthropic.com</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Python Dependencies</h3>
+  <div class="code-block">
+    <pre><span class="comment"># Install with: pip install -r requirements.txt</span>
+<span class="value">anthropic</span>
+<span class="value">google-auth</span>
+<span class="value">google-auth-oauthlib</span>
+<span class="value">google-auth-httplib2</span>
+<span class="value">google-api-python-client</span></pre>
+  </div>
+
+  <!-- SECTION 8 -->
+  <div class="section-header">
+    <span class="section-num">Section 08</span>
+    <h2>Implementation Timeline</h2>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot">1</div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-week">Week 1</div>
+        <h4>Environment Setup &amp; Gmail Auth</h4>
+        <p>Configure Google Cloud project, enable Gmail API, set up OAuth credentials, test authentication flow, verify inbox polling works correctly.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot">2</div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-week">Week 1–2</div>
+        <h4>AI Integration &amp; Prompt Testing</h4>
+        <p>Integrate Anthropic API, implement system prompt with FAQ content, test response quality across various question types, refine prompt for tone and accuracy.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot">3</div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-week">Week 2</div>
+        <h4>Approval Workflow &amp; State Management</h4>
+        <p>Build the Approve/Edit/Skip terminal interface, implement processed ID tracking, test the full end-to-end flow from inbox detection to reply sent.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-left">
+        <div class="timeline-dot">4</div>
+        <div class="timeline-line"></div>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-week">Week 3</div>
+        <h4>Testing, Error Handling &amp; Documentation</h4>
+        <p>Test edge cases (malformed emails, API errors, expired tokens), add error handling and retry logic, write final README, conduct user acceptance testing with the support team.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 9 -->
+  <div class="section-header">
+    <span class="section-num">Section 09</span>
+    <h2>Appendix</h2>
+  </div>
+
+  <h3>Gmail API Setup — Step by Step</h3>
+  <table>
+    <thead>
+      <tr><th>Step</th><th>Action</th><th>URL</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Create a new Google Cloud project</td><td>console.cloud.google.com</td></tr>
+      <tr><td>2</td><td>Search for and enable "Gmail API"</td><td>APIs &amp; Services → Library</td></tr>
+      <tr><td>3</td><td>Create OAuth 2.0 credentials (Desktop App type)</td><td>APIs &amp; Services → Credentials</td></tr>
+      <tr><td>4</td><td>Download credentials JSON file</td><td>Click download icon on credential</td></tr>
+      <tr><td>5</td><td>Rename to credentials.json and place in project folder</td><td>—</td></tr>
+      <tr><td>6</td><td>Run script — browser opens for one-time Gmail login</td><td>—</td></tr>
+      <tr><td>7</td><td>token.json is auto-created for future runs</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Common Error Codes</h3>
+  <table>
+    <thead>
+      <tr><th>Error</th><th>Cause</th><th>Fix</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>credentials.json not found</td><td>File missing from project folder</td><td>Download from Google Cloud Console and rename</td></tr>
+      <tr><td>ANTHROPIC_API_KEY not set</td><td>Environment variable missing</td><td>Run: export ANTHROPIC_API_KEY=your_key</td></tr>
+      <tr><td>Token expired</td><td>OAuth token needs refresh</td><td>Delete token.json and re-run script</td></tr>
+      <tr><td>Gmail API quota exceeded</td><td>Too many requests in short period</td><td>Increase polling interval in config</td></tr>
+      <tr><td>No module named 'anthropic'</td><td>Dependencies not installed</td><td>Run: pip install -r requirements.txt</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout success">
+    <span class="callout-icon">📧</span>
+    <div class="callout-content">
+      <strong>Support Contact</strong>
+      <p>For questions about this project or the Edge Edu FAQ content, contact the Talent Development team at taldev@onedge.co</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>Edge Edu — AI Email Auto-Responder PRD v1.0</span>
+    <span>Confidential &amp; Proprietary · March 2026</span>
+  </div>
+
+</div>
 </body>
 </html>
